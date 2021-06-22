@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="row">
+        <h1>Edit Show {{ the_show.id }}</h1>
+        <div class="col-6 offset-4">
+            <form action="/shows/{{the_show.id}}/update" method="POST">
+                {% csrf_token %}
+                <div class="mb-3">
+                    Title: <input type="text" class="form-control" name="title" value="{{ the_show.title }}">
+                </div>
+                <div class="mb-3">
+                    <!-- Network: <input type="text" class="form-control" name="net"> -->
+                    <select class="form-control form-select" name="net">
+                        <option selected value="{{ the_show.network }}">{{ the_show.network }}</option>
+                        <option value="Amazon Prime">Amazon Prime</option>
+                        <option value="Disney Plus">Disney Plus</option>
+                        <option value="Netflix">Netflix</option>
+                        <option value="Youtube Series">Youtube Series</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    Release Date: <input type="date" class="form-control" name="date" value="{{ the_show.date }}">
+                </div>
+                <div class="mb-3">
+                    Description: <textarea type="text" class="form-control" name="desc"> {{ the_show.desc }}</textarea>
+                </div>
+                <button type="submit" class="btn btn-dark">Update</button>
+            </form>
+    </div>
+{% endblock %}

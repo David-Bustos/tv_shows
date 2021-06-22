@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="row">
+        <h1>TV Show {{ the_show.id }}</h1>
+        <div class="col-8 offset-2">
+            <p>Title: {{ the_show.title }}</p>
+            <p>Networks: {{ the_show.network }}</p>
+            <p>Release Date: {{ the_show.date }}</p>
+            <p>Description: {{ the_show.desc }}</p>
+            <br>
+            <p>Last Updated: {{ the_show.updated_at }}</p>
+            <a href="/shows/{{ the_show.id }}/edit">Edit</a> |
+            <a href="/shows/{{ the_show.id }}/destroy">Delete</a>
+        </div>
+    </div>
+{% endblock %}
