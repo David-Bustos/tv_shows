@@ -1,4 +1,5 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
+from django.contrib import messages
 from .models import *
 
 # Create your views here.
@@ -12,17 +13,34 @@ def all_shows(request):
     return render(request, 'all_shows.html', context)
 
 def new_show(request):
-    
     return render(request, 'new_show.html')
 
 def create(request):
+
     if request.method == "POST":
-        Show.objects.create(
-        title = request.POST['title'],
-        network = request.POST['net'],
-        date = request.POST['date'],
-        desc = request.POST['desc'])
-    return redirect('/shows')
+
+        errors = Show.objects.basic_validator(request.POST)
+
+        if len(errors) > 0:
+            for key, value in errors.items():
+                messages.error(request,value)
+                print('##### ERRORES DETECTADOS #####')
+
+            return redirect('/shows/new')
+
+        else:
+            Show.objects.create(
+            title = request.POST['title'],
+            network = request.POST['net'],
+            date = request.POST['date'],
+            desc = request.POST['desc'])
+
+            last_show = Show.objects.last().id
+
+            return redirect(f'/shows/{last_show}')
+    else:
+        return HttpResponse('Invalid Method')
+
 
 def view_show(request, number):
     context = {
