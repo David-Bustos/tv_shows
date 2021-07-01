@@ -3,29 +3,31 @@
 {% block content %}
     <div class="row">
         <h1>Add New Show</h1>
-        <div class="col-6 offset-4">
-            <form action="{% url 'create' %}" method="POST">
-                {% csrf_token %}
-                <div class="mb-3">
-                    Title: <input type="text" class="form-control" name="title">
-                </div>
-                <div class="mb-3">
-                    <!-- Network: <input type="text" class="form-control" name="net"> -->
-                    <select class="form-control form-select" name="net">
-                        <!-- <option selected>Open this select menu</option> -->
-                        <option value="Amazon Prime">Amazon Prime</option>
-                        <option value="Disney Plus">Disney Plus</option>
-                        <option value="Netflix">Netflix</option>
-                        <option value="Youtube Originals">Youtube Originals</option>
-                    </select>
-                </div>
-                <div class="mb-3">
-                    Release Date: <input type="date" class="form-control" name="date">
-                </div>
-                <div class="mb-3">
-                    Description: <textarea type="text" class="form-control" name="desc"> </textarea>
-                </div>
-                <button type="submit" class="btn btn-dark">Create</button>
-            </form>
-    </div>
+        <div class="col-6 offset-3">
+            <div class="card p-3">
+                <form action="{% url 'create' %}" method="POST">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        Title: <input type="text" class="form-control" name="title">
+                    </div>
+                    <div class="mb-3">
+                        <!-- Network: <input type="text" class="form-control" name="net"> -->
+                        <select class="form-control form-select" name="network">
+                            <!-- <option selected>Open this select menu</option> -->
+                            <option value="Amazon Prime">Amazon Prime</option>
+                            <option value="Disney Plus">Disney Plus</option>
+                            <option value="Netflix">Netflix</option>
+                            <option value="Youtube Originals">Youtube Originals</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        Release Date: <input type="date" class="form-control" name="date">
+                    </div>
+                    <div class="mb-3">
+                        Description: <textarea type="text" class="form-control" name="desc"> </textarea>
+                    </div>
+                    <button type="submit" class="btn btn-success">Create</button>
+                </form>
+            </div>
+        </div>
 {% endblock %}

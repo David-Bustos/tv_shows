@@ -24,18 +24,19 @@ def create(request):
         if len(errors) > 0:
             for key, value in errors.items():
                 messages.error(request,value)
-                print('##### ERRORES DETECTADOS #####')
 
             return redirect('/shows/new')
 
         else:
             Show.objects.create(
             title = request.POST['title'],
-            network = request.POST['net'],
+            network = request.POST['network'],
             date = request.POST['date'],
             desc = request.POST['desc'])
 
             last_show = Show.objects.last().id
+
+            messages.success(request, 'Show created!')
 
             return redirect(f'/shows/{last_show}')
     else:
@@ -51,22 +52,44 @@ def view_show(request, number):
 
 def edit_show(request, number):
     context = {
-        'the_show': Show.objects.get(id=number)
+        'the_show': Show.objects.get(id=number),
+        'networks': ['Amazon Prime',  'Disney Plus', 'Netflix', 'Youtube Originals']
     }
     
     return render(request, 'edit_show.html', context)
 
 def update(request, number):
-    s = Show.objects.get(id=number)
-    s.title = request.POST['title']
-    s.network = request.POST['net']
-    s.date = request.POST['date']
-    s.desc = request.POST['desc']
-    s.save()
 
-    return redirect(f'/shows/{number}')
+    if request.method == "POST":
+
+        errors = Show.objects.basic_validator(request.POST)
+
+        if len(errors) > 0:
+            for key, value in errors.items():
+                messages.error(request,value)
+
+            return redirect(f'/shows/{number}/edit')
+
+        else:
+            s = Show.objects.get(id=number)
+            s.title = request.POST['title']
+            s.network = request.POST['network']
+            s.date = request.POST['date']
+            s.desc = request.POST['desc']
+            s.save()
+
+            messages.success(request, 'Show updated!')
+
+            return redirect(f'/shows/{number}')
+    else:
+        return HttpResponse('Invalid Method')
+
+
 
 def destroy(request, number):
+
+    messages.success(request, 'Show deleted!')
+
     s = Show.objects.get(id=number)
     s.delete()
 

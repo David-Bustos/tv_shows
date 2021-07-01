@@ -24,6 +24,8 @@
     <!-- Import Toastr JS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <!--  Import Sweeralert2 -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- Import Chart JS -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.3.2/dist/chart.min.js"></script>
 
@@ -33,11 +35,21 @@
             toastr.options = {
                 "closeButton": true,
                 "progressBar": true,
+                "newestOnTop": false,
             }
 
             {% if messages %}   
-                {% for message in messages %}    
-                    toastr.{{ message.tags }}("{{message}}")
+                {% for message in messages %}
+                        {% if message.tags == 'success' %}
+                            Swal.fire({
+                            icon: '{{message.tags}}',
+                            title: '{{message}}',
+                            confirmButtonColor: '#303030',
+                            })
+                        
+                        {% else %}
+                            toastr.{{ message.tags }}('{{message}}')
+                        {% endif %}
                 {% endfor %}
             {% endif %}
 
