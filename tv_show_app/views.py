@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, HttpResponse
+from django.http import JsonResponse
 from django.contrib import messages
 from .models import *
 
@@ -88,9 +89,10 @@ def update(request, number):
 
 def destroy(request, number):
 
-    messages.success(request, 'Show deleted!')
+    # messages.success(request, 'Show deleted!')
 
     s = Show.objects.get(id=number)
     s.delete()
 
+    # return JsonResponse({'resultado': True})
     return redirect('/shows')

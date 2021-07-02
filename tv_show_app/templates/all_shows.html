@@ -24,7 +24,7 @@
                         <td>
                             <a class="btn btn-sm btn-outline-success" href="/shows/{{show.id}}">View <i class="bi bi-eye-fill"></i></a>
                             <a class="btn btn-sm btn-outline-info" href="/shows/{{show.id}}/edit">Edit <i class="bi bi-pencil-fill"></i></a>
-                            <a class="btn btn-sm btn-outline-danger" href="/shows/{{show.id}}/destroy">Delete <i class="bi bi-trash-fill"></i></a>
+                            <a class="btn btn-sm btn-outline-danger" onclick="modalDelete({{show.id}})" href="#">Delete <i class="bi bi-trash-fill"></i></a>
                         </td>
                     </tr>
                     {% endfor %}

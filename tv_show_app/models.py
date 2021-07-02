@@ -9,7 +9,6 @@ class ShowManager(models.Manager):
         errors = {}
         today=datetime.now().strftime('%Y-%m-%d')
 
-
         if Show.objects.filter(title=postData['title']):
             errors['title'] = "This show already exists"
         if len(postData['title']) < 2:

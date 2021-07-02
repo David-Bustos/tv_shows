@@ -14,7 +14,7 @@
                 <p>Last Updated: {{ the_show.updated_at }}</p>
                 <div>
                     <a class="btn btn-sm btn-success" href="/shows/{{ the_show.id }}/edit">Edit</a>
-                    <a class="btn btn-sm btn-danger" href="/shows/{{ the_show.id }}/destroy">Delete</a>
+                    <a class="btn btn-sm btn-danger" onclick="modalDelete({{the_show.id}})" href="#">Delete</a>
                 </div>
             </div>
         </div>

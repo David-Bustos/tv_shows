@@ -31,13 +31,7 @@
 
     <script>
         $('document').ready(function () {
-            
-            toastr.options = {
-                "closeButton": true,
-                "progressBar": true,
-                "newestOnTop": false,
-            }
-
+// Mensajes de éxito y error
             {% if messages %}   
                 {% for message in messages %}
                         {% if message.tags == 'success' %}
@@ -46,16 +40,41 @@
                             title: '{{message}}',
                             confirmButtonColor: '#303030',
                             })
-                        
                         {% else %}
+                            toastr.options = {
+                                "closeButton": true,
+                                "progressBar": true,
+                                "newestOnTop": false,
+                            }
                             toastr.{{ message.tags }}('{{message}}')
                         {% endif %}
                 {% endfor %}
             {% endif %}
-
-            // {% block js %} {% endblock %}
         });
-    </script>
+// Modal para confirmar eliminación
+        function modalDelete(id) {
+            console.log(id)
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#303030',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // $.ajax("/shows/"+id+"/destroy")
+                    window.location.href = "/shows/"+id+"/destroy"
+                    Swal.fire(
+                        'Deleted!',
+                        'Your file has been deleted.',
+                        'success'   
+                    )
+                }
+            })
+        }
+    </script> 
 
 </head>
 <body>
@@ -88,5 +107,6 @@
     <div class="container mt-5">
         {% block content %}{% endblock %}
     </div>
+
 </body>
 </html>
