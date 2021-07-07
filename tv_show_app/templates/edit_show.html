@@ -22,7 +22,7 @@
                         </select>
                     </div>
                     <div class="mb-3">
-                        Release Date: <input type="date" class="form-control" name="date" value="{{ the_show.date }}">
+                        Release Date: <input type="date" class="form-control" name="date" value="{{ the_show.date|date:'Y-m-d' }}">
                     </div>
                     <div class="mb-3">
                         Description: <textarea type="text" class="form-control" name="desc"> {{ the_show.desc }}</textarea>

@@ -9,6 +9,7 @@ class ShowManager(models.Manager):
         errors = {}
         today=datetime.now().strftime('%Y-%m-%d')
 
+# FIXME: PREEXISTENCIA TITLE SHOW EN EDIT/UPDATE
         if Show.objects.filter(title=postData['title']):
             errors['title'] = "This show already exists"
         if len(postData['title']) < 2:
